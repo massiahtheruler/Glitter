@@ -1,7 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Prisma } from "@prisma/client";
 import bcrypt from "bcrypt";
 import prisma from "@/libs/prismadb";
+
+const isPrismaUniqueConstraintError = (
+  error: unknown,
+): error is { code: string } =>
+  typeof error === "object" &&
+  error !== null &&
+  "code" in error &&
+  typeof error.code === "string";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
@@ -80,7 +87,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } catch (error) {
     console.log(error);
 
-    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
+    if (isPrismaUniqueConstraintError(error) && error.code === "P2002") {
       return res.status(409).json({
         field: "email",
         message: "An account with that email or username already exists.",
