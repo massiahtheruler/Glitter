@@ -4,7 +4,17 @@ declare global {
   var prisma: PrismaClient | undefined;
 }
 
-const createPrismaClient = () => new PrismaClient();
+const createPrismaClient = () => {
+  const datasourceUrl = process.env.DATABASE_URL;
+
+  if (!datasourceUrl) {
+    throw new Error("DATABASE_URL is not set");
+  }
+
+  return new PrismaClient({
+    datasourceUrl,
+  });
+};
 
 const hasMessageDelegate = (client: PrismaClient | undefined) =>
   Boolean(client && "message" in client);
