@@ -31,17 +31,21 @@ const SignupModal = () => {
 
   const onSubmit = useCallback(async () => {
     try {
-      if (!email.trim()) {
+      const trimmedEmail = email.trim();
+      const trimmedName = name.trim();
+      const trimmedUsername = username.trim();
+
+      if (!trimmedEmail) {
         toast.error("Email is required.");
         return;
       }
 
-      if (!name.trim()) {
+      if (!trimmedName) {
         toast.error("Name is required.");
         return;
       }
 
-      if (!username.trim()) {
+      if (!trimmedUsername) {
         toast.error("Username is required.");
         return;
       }
@@ -54,16 +58,16 @@ const SignupModal = () => {
       setIsLoading(true);
 
       await axios.post("/api/register", {
-        email,
+        email: trimmedEmail,
         password,
-        username,
-        name,
+        username: trimmedUsername,
+        name: trimmedName,
       });
 
       toast.success("Account created successfully!");
 
       const response = await signIn("credentials", {
-        email,
+        email: trimmedEmail,
         password,
         redirect: false,
       });

@@ -33,7 +33,9 @@ const LoginModal = () => {
 
   const onSubmit = useCallback(async () => {
     try {
-      if (!email.trim()) {
+      const trimmedEmail = email.trim();
+
+      if (!trimmedEmail) {
         toast.error("Email is required.");
         return;
       }
@@ -46,7 +48,7 @@ const LoginModal = () => {
       setIsLoading(true);
 
       const response = await signIn("credentials", {
-        email,
+        email: trimmedEmail,
         password,
         redirect: false,
       });
