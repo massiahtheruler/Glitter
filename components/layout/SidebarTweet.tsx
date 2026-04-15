@@ -1,7 +1,6 @@
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useSignupModal from "@/hooks/useSignupModal";
 import { useRouter } from "next/router";
-import { FaFeather } from "react-icons/fa";
 import BrandMark from "../BrandMark";
 
 const SidebarTweet = () => {

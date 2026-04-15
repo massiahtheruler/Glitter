@@ -1,15 +1,5 @@
-import {create} from 'zustand'
+import createModalStore from "@/libs/createModalStore";
 
-interface EditModalStore {
-  isOpen: boolean;
-  onOpen: () => void;
-  onClose: () => void;
-}
+const useEditModal = createModalStore();
 
-const useEditModal = create<EditModalStore>((set) => ({
-  isOpen: false,
-  onOpen: () => set({ isOpen: true }),
-  onClose: () => set({ isOpen: false })
-}))
-
-export default useEditModal
+export default useEditModal;

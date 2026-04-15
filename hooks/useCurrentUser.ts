@@ -1,17 +1,17 @@
-import useSWR from "swr";
-import { fetcher } from "@/libs/fetcher";
+import useApiData from "@/hooks/useApiData";
+import { UserSummary } from "@/types/social";
 
 const useCurrentUser = () => {
-    const { data, error, isLoading, mutate } = useSWR("/api/current", fetcher);
+  const { data, error, isLoading, mutate } = useApiData<UserSummary | null>(
+    "/api/current",
+  );
 
-
-    return {
-        data,
-        error,
-        isLoading,
-        mutate
-    };
-
-}
+  return {
+    data,
+    error,
+    isLoading,
+    mutate,
+  };
+};
 
 export default useCurrentUser;

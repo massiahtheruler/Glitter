@@ -5,11 +5,7 @@ import usePosts from "./usePosts";
 import useLoginModal from "./useLoginModal";
 import toast from "react-hot-toast";
 import axios from "axios";
-
-type PostRecord = {
-  id: string;
-  likedIds?: string[];
-};
+import { PostRecord } from "@/types/social";
 
 const useLike = ({ postId, userId }: { postId: string; userId?: string }) => {
   const { data: currentUser } = useCurrentUser();
@@ -43,7 +39,7 @@ const useLike = ({ postId, userId }: { postId: string; userId?: string }) => {
       }
 
       await mutateFetchedPost(
-        (currentPost?: PostRecord) =>
+        (currentPost: PostRecord | null | undefined) =>
           currentPost
             ? {
                 ...currentPost,

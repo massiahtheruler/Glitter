@@ -11,6 +11,8 @@ import useMessages from "@/hooks/useMessages";
 import useMessageThread from "@/hooks/useMessageThread";
 import useReadMessages from "@/hooks/useReadMessages";
 import useUser from "@/hooks/useUser";
+import { markInboxThreadRead } from "@/libs/messages";
+import { MessageWithUsers } from "@/types/messages";
 
 type MessageThreadPaneProps = {
   userId?: string;
@@ -47,37 +49,9 @@ const MessageThreadPane = ({
     const syncReadState = async () => {
       try {
         await axios.patch(`/api/messages/${userId}`);
-        await mutateInbox(
-          (current:
-            | {
-                unreadCount?: number;
-                threads?: Array<{
-                    unreadCount?: number;
-                    user: { id: string };
-                  }>;
-              }
-            | undefined) => {
-            if (!current?.threads) {
-              return current;
-            }
-
-            const nextThreads = current.threads.map((thread) =>
-              thread.user.id === userId
-                ? { ...thread, unreadCount: 0 }
-                : thread,
-            );
-
-            return {
-              ...current,
-              threads: nextThreads,
-              unreadCount: nextThreads.reduce(
-                (total, thread) => total + (thread.unreadCount || 0),
-                0,
-              ),
-            };
-          },
-          { revalidate: true },
-        );
+        await mutateInbox((current) => markInboxThreadRead(current, userId), {
+          revalidate: true,
+        });
       } catch (error) {
         console.error("Failed to sync thread read state", error);
       }
@@ -89,15 +63,16 @@ const MessageThreadPane = ({
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!userId || !messageBody.trim()) {
+    if (!userId || !messageBody.trim() || !currentUser || !otherUser) {
       return;
     }
 
-    const optimisticMessage = {
+    const optimisticMessage: MessageWithUsers = {
       id: `optimistic-${Date.now()}`,
       body: messageBody.trim(),
       createdAt: new Date().toISOString(),
-      senderId: currentUser?.id,
+      updatedAt: new Date().toISOString(),
+      senderId: currentUser.id,
       recipientId: userId,
       seenAt: null,
       sender: currentUser,
@@ -108,12 +83,7 @@ const MessageThreadPane = ({
     try {
       setIsSending(true);
       await mutateThread(
-        (current:
-          | {
-              messages?: typeof optimisticMessage[];
-              otherUser?: typeof otherUser;
-            }
-          | undefined) => ({
+        (current) => ({
           otherUser: current?.otherUser || otherUser,
           messages: [...(current?.messages || []), optimisticMessage],
         }),
@@ -127,17 +97,7 @@ const MessageThreadPane = ({
       });
 
       await mutateThread(
-        (current:
-          | {
-              messages?: Array<{
-                  id: string;
-                  body: string;
-                  createdAt: string;
-                  senderId: string;
-                }>;
-              otherUser?: typeof otherUser;
-            }
-          | undefined) => ({
+        (current) => ({
           otherUser: current?.otherUser || otherUser,
           messages: [
             ...(current?.messages || []).filter(
@@ -228,12 +188,7 @@ const MessageThreadPane = ({
       >
         {messages.length ? (
           messages.map(
-            (message: {
-              id: string;
-              body: string;
-              createdAt: string;
-              senderId: string;
-            }) => {
+            (message: MessageWithUsers) => {
               const isOwn = message.senderId === currentUser?.id;
 
               return (

@@ -1,11 +1,9 @@
-import useSWR from "swr";
-
-import { fetcher } from "@/libs/fetcher";
+import useApiData from "@/hooks/useApiData";
+import { MessageThreadResponse } from "@/types/messages";
 
 const useMessageThread = (userId?: string) => {
-  const { data, error, isLoading, mutate } = useSWR(
+  const { data, error, isLoading, mutate } = useApiData<MessageThreadResponse>(
     userId ? `/api/messages/${userId}` : null,
-    fetcher,
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,

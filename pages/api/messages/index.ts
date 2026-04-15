@@ -1,10 +1,32 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { Prisma } from "@prisma/client";
 
 import getRequestContent from "@/libs/getRequestContent";
 import prisma from "@/libs/prismadb";
 import serverAuth from "@/libs/serverAuth";
 
 const isValidObjectId = (value: string) => /^[a-f\d]{24}$/i.test(value);
+type MessageWithUsersRecord = Prisma.MessageGetPayload<{
+  include: {
+    sender: true;
+    recipient: true;
+  };
+}>;
+type MessageThreadRecord = {
+  lastMessage: MessageWithUsersRecord;
+  unreadCount: number;
+  user: MessageWithUsersRecord["sender"];
+};
+
+const getRecipientId = (payload: unknown) => {
+  if (!payload || typeof payload !== "object" || !("recipientId" in payload)) {
+    return undefined;
+  }
+
+  const { recipientId } = payload as { recipientId?: unknown };
+
+  return typeof recipientId === "string" ? recipientId : undefined;
+};
 
 export default async function handler(
   req: NextApiRequest,
@@ -14,7 +36,7 @@ export default async function handler(
     const { currentUser } = await serverAuth(req, res);
 
     if (req.method === "GET") {
-      const messages = await prisma.message.findMany({
+      const messages: MessageWithUsersRecord[] = await prisma.message.findMany({
         where: {
           OR: [{ senderId: currentUser.id }, { recipientId: currentUser.id }],
         },
@@ -27,16 +49,9 @@ export default async function handler(
         },
       });
 
-      const threadMap = new Map<
-        string,
-        {
-          lastMessage: (typeof messages)[number];
-          unreadCount: number;
-          user: (typeof messages)[number]["sender"];
-        }
-      >();
+      const threadMap = new Map<string, MessageThreadRecord>();
 
-      messages.forEach((message) => {
+      messages.forEach((message: MessageWithUsersRecord) => {
         const otherUser =
           message.senderId === currentUser.id
             ? message.recipient
@@ -76,12 +91,9 @@ export default async function handler(
 
     if (req.method === "POST") {
       const body = getRequestContent(req.body);
-      const recipientId =
-        req.body && typeof req.body === "object" && "recipientId" in req.body
-          ? req.body.recipientId
-          : undefined;
+      const recipientId = getRecipientId(req.body);
 
-      if (typeof recipientId !== "string") {
+      if (!recipientId) {
         return res.status(400).json({ error: "Recipient is required" });
       }
 

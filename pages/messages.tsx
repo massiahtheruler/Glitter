@@ -14,6 +14,8 @@ import useMessages from "@/hooks/useMessages";
 import useMinimumLoading from "@/hooks/useMinimumLoading";
 import useReadMessages from "@/hooks/useReadMessages";
 import useUsers from "@/hooks/useUsers";
+import { markInboxThreadRead } from "@/libs/messages";
+import { MessageThread } from "@/types/messages";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -48,16 +50,7 @@ const MessagesPage = () => {
 
   const threads = useMemo(
     () =>
-      (inboxData?.threads || []).map(
-        (thread: {
-          unreadCount?: number;
-          user: { id: string };
-          lastMessage: {
-            body: string;
-            createdAt: string;
-            senderId: string;
-          };
-        }) =>
+      (inboxData?.threads || []).map((thread: MessageThread) =>
           readThreadIds[thread.user.id]
             ? { ...thread, unreadCount: 0 }
             : thread,
@@ -94,37 +87,9 @@ const MessagesPage = () => {
 
     try {
       await axios.patch(`/api/messages/${userId}`);
-      await mutateInbox(
-        (current:
-          | {
-              unreadCount?: number;
-              threads?: Array<{
-                  unreadCount: number;
-                  user: { id: string };
-                }>;
-            }
-          | undefined) => {
-          if (!current?.threads) {
-            return current;
-          }
-
-          const nextThreads = current.threads.map((thread) =>
-            thread.user.id === userId
-              ? { ...thread, unreadCount: 0 }
-              : thread,
-          );
-
-          return {
-            ...current,
-            threads: nextThreads,
-            unreadCount: nextThreads.reduce(
-              (total, thread) => total + (thread.unreadCount || 0),
-              0,
-            ),
-          };
-        },
-        { revalidate: true },
-      );
+      await mutateInbox((current) => markInboxThreadRead(current, userId), {
+        revalidate: true,
+      });
     } catch (error) {
       console.error("Failed to mark thread as read", error);
     }
@@ -198,20 +163,7 @@ const MessagesPage = () => {
 
           <div className="divide-y divide-neutral-800">
             {threads.length ? (
-              threads.map(
-                (thread: {
-                  user: {
-                    id: string;
-                    name?: string | null;
-                    username?: string | null;
-                  };
-                  unreadCount: number;
-                  lastMessage: {
-                    body: string;
-                    createdAt: string;
-                    senderId: string;
-                  };
-                }) => (
+              threads.map((thread) => (
                   <button
                     key={thread.user.id}
                     type="button"

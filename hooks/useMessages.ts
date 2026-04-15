@@ -1,13 +1,15 @@
-import useSWR from "swr";
-
-import { fetcher } from "@/libs/fetcher";
+import useApiData from "@/hooks/useApiData";
+import { MessagesInboxResponse } from "@/types/messages";
 
 const useMessages = () => {
-  const { data, error, isLoading, mutate } = useSWR("/api/messages", fetcher, {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    dedupingInterval: 5000,
-  });
+  const { data, error, isLoading, mutate } = useApiData<MessagesInboxResponse>(
+    "/api/messages",
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      dedupingInterval: 5000,
+    },
+  );
 
   return {
     data,

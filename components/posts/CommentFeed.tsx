@@ -1,18 +1,9 @@
+import { CommentRecord } from "@/types/social";
+
 import CommentItem from "./CommentItem";
 
-type Comment = {
-  id: string;
-  content: string;
-  createdAt?: string | Date;
-  user: {
-    id: string;
-    name?: string | null;
-    username?: string | null;
-  };
-};
-
 interface CommentFeedProps {
-  comments?: Comment[];
+  comments?: CommentRecord[];
 }
 
 const CommentFeed = ({ comments = [] }: CommentFeedProps) => {

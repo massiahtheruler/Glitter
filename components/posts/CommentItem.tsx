@@ -2,33 +2,27 @@ import { formatDistanceToNowStrict } from "date-fns";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import type { MouseEvent } from "react";
+import { CommentRecord } from "@/types/social";
+
 import Avatar from "../Avatar";
 
-type Comment = {
-  id: string;
-  content: string;
-  createdAt?: string | Date;
-  user: {
-    id: string;
-    name?: string | null;
-    username?: string | null;
-  };
-};
-
 interface CommentItemProps {
-  data: Comment;
+  data: CommentRecord;
 }
 
 const CommentItem = ({ data }: CommentItemProps) => {
   const router = useRouter();
+  const userId = data.user?.id;
 
   const goToUser = useCallback(
     (event: MouseEvent<HTMLParagraphElement | HTMLSpanElement>) => {
       event.stopPropagation();
 
-      router.push(`/users/${data.user.id}`);
+      if (userId) {
+        router.push(`/users/${userId}`);
+      }
     },
-    [router, data.user.id],
+    [router, userId],
   );
 
   const createdAt = data.createdAt
@@ -38,20 +32,20 @@ const CommentItem = ({ data }: CommentItemProps) => {
   return (
     <div className="cursor-pointer border-b border-neutral-800 p-5 transition hover:bg-neutral-900">
       <div className="flex flex-row items-start gap-3">
-        <Avatar userId={data.user.id} />
+        {userId ? <Avatar userId={userId} /> : null}
         <div>
           <div className="flex flex-row items-center gap-2">
             <p
               onClick={goToUser}
               className="cursor-pointer font-semibold text-white hover:underline"
             >
-              {data.user.name || "Unknown user"}
+              {data.user?.name || "Unknown user"}
             </p>
             <span
               onClick={goToUser}
               className="hidden cursor-pointer text-neutral-500 hover:underline md:block"
             >
-              @{data.user.username || "unknown"}
+              @{data.user?.username || "unknown"}
             </span>
             <span className="text-sm text-neutral-500">{createdAt}</span>
           </div>

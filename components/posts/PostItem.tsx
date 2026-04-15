@@ -7,16 +7,7 @@ import { formatDistanceToNowStrict } from "date-fns";
 import { useCallback, type MouseEvent } from "react";
 import { AiFillHeart, AiOutlineHeart, AiOutlineMessage } from "react-icons/ai";
 import useLike from "@/hooks/useLike";
-
-type PostUser = {
-  id: string;
-  name?: string | null;
-  username?: string | null;
-};
-
-type PostComment = {
-  id: string;
-};
+import { PostRecord, UserSummary } from "@/types/social";
 
 export interface PostItemData {
   id: string;
@@ -24,21 +15,13 @@ export interface PostItemData {
   image?: string | null;
   createdAt?: string | Date;
   likedIds?: string[];
-  user: PostUser;
-  comments?: PostComment[];
+  user: UserSummary;
+  comments?: PostRecord["comments"];
 }
 
 interface PostItemProps {
+  data: PostItemData;
   userId?: string;
-  data: {
-    id: string;
-    content: string;
-    image?: string | null;
-    createdAt?: string | Date;
-    likedIds?: string[];
-    user: PostUser;
-    comments?: PostComment[];
-  };
 }
 
 const PostItem = ({ data, userId }: PostItemProps) => {

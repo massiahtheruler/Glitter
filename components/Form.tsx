@@ -8,6 +8,7 @@ import useLoginModal from "@/hooks/useLoginModal";
 import usePost from "@/hooks/usePost";
 import usePosts from "@/hooks/usePosts";
 import useSignupModal from "@/hooks/useSignupModal";
+import { CommentRecord, PostRecord } from "@/types/social";
 
 import Avatar from "./Avatar";
 import Button from "./Button";
@@ -48,7 +49,7 @@ const Form = ({ placeholder, isComment, postId }: FormProps) => {
       setIsLoading(true);
 
       if (isComment) {
-        const optimisticComment = {
+        const optimisticComment: CommentRecord = {
           id: `optimistic-${Date.now()}`,
           content,
           createdAt: new Date().toISOString(),
@@ -60,7 +61,7 @@ const Form = ({ placeholder, isComment, postId }: FormProps) => {
         };
 
         await mutatePost(
-          (currentPost?: { comments?: (typeof optimisticComment)[] }) =>
+          (currentPost: PostRecord | null | undefined) =>
             currentPost
               ? {
                   ...currentPost,
@@ -77,7 +78,7 @@ const Form = ({ placeholder, isComment, postId }: FormProps) => {
         await mutatePost();
         setContent("");
       } else {
-        const optimisticPost = {
+        const optimisticPost: PostRecord = {
           id: `optimistic-post-${Date.now()}`,
           content,
           image: image || undefined,
@@ -92,7 +93,7 @@ const Form = ({ placeholder, isComment, postId }: FormProps) => {
         };
 
         await mutatePosts(
-          (currentPosts?: (typeof optimisticPost)[]) =>
+          (currentPosts: PostRecord[] | undefined) =>
             currentPosts ? [optimisticPost, ...currentPosts] : [optimisticPost],
           { revalidate: false },
         );
@@ -150,47 +151,15 @@ const Form = ({ placeholder, isComment, postId }: FormProps) => {
         transition={{ duration: 0.3 }}
         className="px-5 py-2 border-b border-neutral-800"
       >
-        {" "}
-        {currentUser ? (
-          <div className="flex flex-row gap-4">
-            <div>
-              <Avatar userId={currentUser?.id} />
-            </div>
-            <div className="w-full">
-              <textarea
-                className="w-full 
-               mt-3
-               bg-neutral-950 
-               resize-none 
-               disabled:opacity-80 
-               peer 
-               ring-0 
-               outline-0 
-               text-[20px]
-               placeholder-neutral-500
-               text-white"
-                placeholder={placeholder}
-                disabled
-                onChange={(e) => setContent(e.target.value)}
-                value={content}
-              ></textarea>
-              <hr className="w-full h-px transition opacity-0 border-neutral-800 peer-focus:opacity-100" />
-              <div className="flex flex-row justify-end mt-4">
-                <Button disabled={isLoading} onClick={onSubmit} label="Geek" />
-              </div>
-            </div>
+        <div className="py-8">
+          <h1 className="mb-4 text-2xl font-bold text-center text-white">
+            Welcome to Glitter
+          </h1>
+          <div className="flex flex-row items-center justify-center gap-4">
+            <Button onClick={loginModal.onOpen} label="Login" />
+            <Button onClick={signupModal.onOpen} label="Register" />
           </div>
-        ) : (
-          <div className="py-8">
-            <h1 className="mb-4 text-2xl font-bold text-center text-white">
-              Welcome to Glitter
-            </h1>
-            <div className="flex flex-row items-center justify-center gap-4">
-              <Button onClick={loginModal.onOpen} label="Login" />
-              <Button onClick={signupModal.onOpen} label="Register" />
-            </div>
-          </div>
-        )}
+        </div>
       </motion.div>
     );
   }

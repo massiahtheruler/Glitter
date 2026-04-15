@@ -1,15 +1,5 @@
-import {create} from 'zustand'
+import createModalStore from "@/libs/createModalStore";
 
-interface SignupModalStore {
-  isOpen: boolean;
-  onOpen: () => void;
-  onClose: () => void;
-}
+const useSignupModal = createModalStore();
 
-const useSignupModal = create<SignupModalStore>((set) => ({
-  isOpen: false,
-  onOpen: () => set({ isOpen: true }),
-  onClose: () => set({ isOpen: false })
-}))
-
-export default useSignupModal
+export default useSignupModal;

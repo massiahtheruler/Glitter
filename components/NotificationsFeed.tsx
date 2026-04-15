@@ -1,17 +1,8 @@
 import BrandMark from "@/components/BrandMark";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useNotifications from "@/hooks/useNotifications";
+import { NotificationRecord } from "@/types/social";
 import { useEffect } from "react";
-
-type Notification = {
-  id: string;
-  body: string;
-  createdAt?: string | Date;
-  fromUser?: {
-    name?: string | null;
-    username?: string | null;
-  };
-};
 
 const NotificationsFeed = () => {
   const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
@@ -31,7 +22,7 @@ const NotificationsFeed = () => {
 
   return (
     <div className="flex flex-col">
-      {fetchedNotifications.map((notification: Notification) => (
+      {fetchedNotifications.map((notification: NotificationRecord) => (
         <div
           key={notification.id}
           className="relative border-b border-neutral-800 p-6 pl-28 text-white"
