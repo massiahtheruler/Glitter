@@ -1,9 +1,9 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a [Next.js](https://nextjs.org) project
 
 ## Getting Started
 
 " https://glitter-theta.vercel.app "
-- Live VERCEL deployed url -
+ - Live VERCEL deployed URL -
 
 
 First, run the development server:
@@ -20,7 +20,7 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-# Glitter - Where you shine Online.
+# Glitter - Where you shine Online. #
 
 A full-stack social platform inspired by X/Twitter, rebuilt with custom branding, expanded features, and a more PG-13, family-friendlier product direction.
 
