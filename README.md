@@ -1,22 +1,12 @@
 This is a [Next.js](https://nextjs.org) project
 
-## Getting Started
+## Getting Started <a name="-getting-started"></a>
 
 " https://glitter-theta.vercel.app "
  - Live VERCEL deployed URL -
 
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[Getting Started](#-getting-started)
+[Highlights](#-highlights)
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -30,7 +20,8 @@ Instead of stopping at a direct Twitter clone, I treated the project more like a
 
 This project reflects the kind of front-end and product work I enjoy most: interaction-heavy UI, account-aware features, social app structure, strong customization, and solving real implementation issues directly instead of relying on prebuilt templates or drag-and-drop abstractions.
 
-## Highlights
+## Highlights <a name="-highlights"></a>
+
 - Custom-branded social platform inspired by X/Twitter
 - Family-friendlier, PG-13-ish product direction instead of a vulgar clone
 - Full sign up, sign in, sign out, and authenticated session flow
