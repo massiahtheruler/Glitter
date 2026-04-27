@@ -8,13 +8,13 @@ This is a [Next.js](https://nextjs.org) project
 
 -- Table Of Contents --
 
--[Getting Started](#-getting-started) 
--[Highlights](#-highlights)
--[What I Built](#-whats-built)
--[Tech-Stack](#-tech-stack)
--[Above And Beyond](#-above-and-beyond)
--[Stand Out Features](#-stand-out)
--[Closing](#-closing)
+-[Getting Started](#-getting-started) </br>
+-[Highlights](#-highlights)</br>
+-[What I Built](#-whats-built)</br>
+-[Tech-Stack](#-tech-stack)</br>
+-[Above And Beyond](#-above-and-beyond)</br>
+-[Stand Out Features](#-stand-out)</br>
+-[Closing](#-closing)</br>
 
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
