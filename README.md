@@ -5,8 +5,17 @@ This is a [Next.js](https://nextjs.org) project
 " https://glitter-theta.vercel.app "
  - Live VERCEL deployed URL -
 
-[Getting Started](#-getting-started) <br>
-[Highlights](#-highlights)
+
+-- Table Of Contents --
+
+-[Getting Started](#-getting-started) 
+-[Highlights](#-highlights)
+-[What I Built](#-whats-built)
+-[Tech-Stack](#-tech-stack)
+-[Above And Beyond](#-above-and-beyond)
+-[Stand Out Features](#-stand-out)
+-[Closing](#-closing)
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -35,9 +44,12 @@ This project reflects the kind of front-end and product work I enjoy most: inter
 - Brok AI chat concept and Deeems messaging concept added as custom product extensions
 - Built beyond the tutorial by expanding branding, product identity, and feature scope
 
-## What I Built
 
-### 1. Authentication and Account Flow
+## What I Built ##<a name="-whats-built"></a>
+
+
+### 1. Authentication and Account Flow ###
+
 I implemented a real account system rather than a static social mockup.
 
 That includes:
@@ -50,7 +62,9 @@ That includes:
 
 This gave the app real product behavior instead of just a visual shell.
 
-### 2. Social Feed Layout
+
+### 2. Social Feed Layout ###
+
 The app is structured around a central scrolling body the way a real social product would be.
 
 That includes:
@@ -62,7 +76,9 @@ That includes:
 
 I wanted the page to feel like an actual app layout, not just a tutorial page with components stacked vertically.
 
-### 3. Post Creation and Feed Rendering
+
+### 3. Post Creation and Feed Rendering ###
+
 I wired in real post logic rather than leaving the feed as placeholder content.
 
 That includes:
@@ -76,7 +92,9 @@ That includes:
 
 This moved the project from “UI clone” into something much closer to a usable product foundation.
 
-### 4. Dynamic Profile Pages
+
+### 4. Dynamic Profile Pages ###
+
 Each user has a real profile route and profile-specific UI sections.
 
 That includes:
@@ -91,7 +109,9 @@ That includes:
 
 This was one of the biggest steps in making the app feel like a complete social product instead of just a homepage clone.
 
-### 5. Profile Editing
+
+### 5. Profile Editing ###
+
 I built a full edit profile flow with real update behavior.
 
 That includes:
@@ -103,7 +123,9 @@ That includes:
 
 The goal here was to make profile ownership feel real, not simulated.
 
-### 6. Social Interaction Foundation
+
+### 6. Social Interaction Foundation ###
+
 I built the foundation for user-to-user interaction rather than stopping at a feed-only interface.
 
 That includes:
@@ -115,7 +137,9 @@ That includes:
 
 Some of these features are still evolving, but the structure is in place and tied into the actual app logic.
 
-### 7. Custom Branding and Product Identity
+
+### 7. Custom Branding and Product Identity ###
+
 One of the most important parts of this project was pushing it past tutorial identity.
 
 That includes:
@@ -127,8 +151,10 @@ That includes:
 
 That mattered because I wanted the portfolio value to come from product thinking too, not just copying a known interface.
 
-## Built Beyond the Tutorial
-This project went meaningfully beyond the original tutorial scope.
+
+## Above And Beyond ## <a name="-above-and-beyond"></a>
+
+This project went meaningfully beyond the original expectation and example scope.
 
 I expanded and customized it by:
 - changing the branding and naming direction
@@ -141,7 +167,9 @@ I expanded and customized it by:
 
 A lot of clones stop at visual similarity. I wanted this one to behave more like a real product and reflect more of my own taste and decision-making.
 
-## Technical Notes
+
+## Technical Notes ##
+
 This project was built with real front-end state, routing, data fetching, API routes, and UI logic rather than relying on templates to fake the experience.
 
 Key technical areas include:
@@ -154,7 +182,9 @@ Key technical areas include:
 - post feed fetching and filtering
 - follow-state logic
 
-## Stack
+
+## Tech-Stack ##<a name="-tech-stack"></a>
+
 - Next.js
 - React
 - TypeScript
@@ -168,8 +198,10 @@ Key technical areas include:
 - Date-fns
 - React Hot Toast
 - React Icons
+  
 
-## Why This Project Stands Out
+## Why This Project Stands Out ## <a name="-stand-out"></a>
+
 What makes this project stronger than a basic tutorial clone is the combination of:
 - real auth and account state
 - real feed and profile behavior
@@ -186,7 +218,9 @@ This project shows that I can do more than reproduce a UI. It shows I can:
 - make product decisions
 - build a more complete and more intentional user experience
 
+
 ## Future Improvements
+
 - full Deeems messaging flow
 - Brok AI chat integration
 - stronger optimistic updates for likes and follows
@@ -196,13 +230,16 @@ This project shows that I can do more than reproduce a UI. It shows I can:
 - stronger moderation and family-friendly content systems
 - better trend discovery and recommendation logic
 
-## Closing
+
+## Closing ##<a name="-closing"></a>
+
 Glitter reflects the kind of work I want to keep doing: product-style front-end engineering with real logic, strong UI structure, social interaction, customization beyond the tutorial, and enough original direction that the finished build feels like mine rather than just a copied clone.
 
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
 
 ## Learn More
 
