@@ -7,13 +7,14 @@ import Layout from "../components/layout";
 // import Modal from "@/components/Modal";
 import LoginModal from "@/components/modals/LoginModal";
 import SignupModal from "@/components/modals/SignupModal";
-import {Toaster} from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { SessionProvider } from "next-auth/react";
 import EditModal from "@/components/modals/EditModal";
 import DeeEmModal from "@/components/modals/DeeEmModal";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
+
   const [isRouteLoading, setIsRouteLoading] = useState(false);
   const routeLoadStartedAt = useRef(0);
 
@@ -49,7 +50,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <SessionProvider session={pageProps.session}>
       <Toaster />
       {isRouteLoading ? <RouteSkeleton /> : null}
-      <EditModal/>
+      <EditModal />
       <DeeEmModal />
       {/* <Modal
         isOpen
