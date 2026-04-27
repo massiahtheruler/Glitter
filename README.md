@@ -5,7 +5,7 @@ This is a [Next.js](https://nextjs.org) project
 " https://glitter-theta.vercel.app "
  - Live VERCEL deployed URL -
 
-[Getting Started](#-getting-started)
+[Getting Started](#-getting-started) <br>
 [Highlights](#-highlights)
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
