@@ -11,6 +11,7 @@ import SidebarItem from "./SidebarItem";
 import SidebarTweet from "./SidebarTweet";
 import { useCallback } from "react";
 import useLoginModal from "@/hooks/useLoginModal";
+import useEditModal from "@/hooks/useEditModal";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useMessages from "@/hooks/useMessages";
 import useReadMessages from "@/hooks/useReadMessages";
@@ -19,6 +20,7 @@ import { signOut } from "next-auth/react";
 
 function Sidebar() {
   const { data: userData, mutate: mutateCurrentUser } = useCurrentUser();
+  const editModal = useEditModal();
   const { data: messagesData } = useMessages();
   const readThreadIds = useReadMessages((state) => state.readThreadIds);
   const loginModal = useLoginModal();
@@ -57,6 +59,20 @@ function Sidebar() {
 
     router.push(`/users/${userData.id}`);
   };
+
+  const onEditClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.stopPropagation();
+
+      if (!userData?.id) {
+        loginModal.onOpen();
+        return;
+      }
+
+      editModal.onOpen();
+    },
+    [editModal, loginModal, userData?.id],
+  );
 
   const items = [
     {
@@ -139,7 +155,7 @@ function Sidebar() {
         <div className="mt-auto w-full max-w-[274px]">
           <div
             onClick={onProfileClick}
-            className="flex cursor-pointer items-center justify-center rounded-full py-3 transition hover:bg-slate-300/5 max-[500px]:mx-auto max-[500px]:w-14 md:mx-auto md:w-fit md:px-0 lg:w-full lg:justify-between lg:px-4"
+            className="group flex cursor-pointer items-center justify-center rounded-full py-3 transition hover:bg-slate-300/5 max-[500px]:mx-auto max-[500px]:w-14 md:mx-auto md:w-fit md:px-0 lg:w-full lg:justify-between lg:px-4"
           >
             <div className="flex items-center gap-3">
               {userData?.id ? (
@@ -158,7 +174,17 @@ function Sidebar() {
                 </p>
               </div>
             </div>
-            <HiMiniEllipsisHorizontal className="hidden text-neutral-500 lg:block" size={20} />
+            <button
+              type="button"
+              aria-label="Edit profile"
+              onClick={onEditClick}
+              className="relative hidden rounded-full p-2 text-neutral-500 transition hover:bg-slate-300/10 hover:text-sky-300 lg:block"
+            >
+              <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded-full bg-sky-500/15 px-3 py-1 text-[11px] font-medium text-sky-200 opacity-0 transition duration-200 group-hover:opacity-100">
+                Edit
+              </span>
+              <HiMiniEllipsisHorizontal size={20} />
+            </button>
           </div>
         </div>
       </div>

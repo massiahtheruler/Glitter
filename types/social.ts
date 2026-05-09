@@ -2,6 +2,7 @@ export type UserSummary = {
   id: string;
   name?: string | null;
   username?: string | null;
+  email?: string | null;
   profileImage?: string | null;
   coverImage?: string | null;
   bio?: string | null;

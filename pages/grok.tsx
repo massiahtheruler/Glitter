@@ -369,7 +369,7 @@ const GrokPage = () => {
 
           <form
             onSubmit={onSubmit}
-            className="fixed bottom-100 left-1/2 z-20 w-[calc(100%-2rem)] max-w-210 -translate-x-1/2"
+            className="fixed bottom-8 left-1/2 z-20 w-[calc(100%-2rem)] max-w-210 -translate-x-1/2 sm:bottom-10 lg:bottom-12"
           >
             <div className="flex items-end gap-3 rounded-[32px] border border-neutral-800 bg-neutral-900/95 px-4 py-3 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur">
               <textarea
