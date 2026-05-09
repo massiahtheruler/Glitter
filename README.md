@@ -41,6 +41,18 @@ State and UX:
 - SWR and React Query for data flow and fetch coordination
 - Modal-driven auth and profile editing experience
 
+## Demo Accounts
+
+### Primary Demo Account
+- Email: `massiah024@gmail.com`
+- Password: `random123!321`
+- Use this account to test the fuller social experience with more seeded posts, profile content, and image-driven profile state
+
+### Secondary Demo Account
+- Email: `justin.henry0024@gmail.com`
+- Password: `random123!321`
+- Use this account to test a second signed-in user state for feed, profile, and interaction behavior
+
 ## What I Built
 
 ### 1. Authentication and Account Flow
