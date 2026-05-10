@@ -47,6 +47,7 @@ Backend and Data:
 
 State and UX:
 - Zustand for modal and interaction state
+- I chose Zustand for lightweight UI state like modals and interaction flow because it kept the app fast and simple without bringing in heavier global state tooling the current product scope did not need.
 - SWR and React Query for client data flow
 - React Hot Toast for inline feedback
 - Optimistic UI patterns in posting and messaging flows
