@@ -27,6 +27,10 @@ The screens below show the parts that pushed Glitter past tutorial energy: the f
 
 ![Glitter home feed](./readme-assets/glitter-home-hero.png)
 
+The main walkthrough below shows the branded login flow, loading state, and the more interactive side of the product like optimistic updates, messaging, and social feedback loops.
+
+![Glitter primary walkthrough](./readme-assets/glitter-primary-1.5x.gif)
+
 ## Architecture Snapshot
 
 Frontend:
