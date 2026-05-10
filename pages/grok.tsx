@@ -20,6 +20,13 @@ type ChatMessage = {
 
 const BROK_UID = "8UM7MkrjouNWjCWFOCERAmZMECB2";
 const CHAT_STORAGE_KEY = "glitter-brok-history";
+const BROK_IDENTITY_CONTEXT = [
+  "You are Brok, Glitter's built-in creative assistant.",
+  "Your name is Brok.",
+  "If the user says Brok, treat it as your name and not as the word broke.",
+  "Do not call yourself Grok or broke.",
+  "Keep responses friendly, concise, and creative.",
+].join(" ");
 
 const initialMessages: ChatMessage[] = [
   {
@@ -73,6 +80,28 @@ const normalizePrompt = (message: string) => {
   return remainder
     ? `Generate an image of ${remainder}`
     : "Generate an image based on the idea I described.";
+};
+
+const getBrokIdentityReply = (message: string) => {
+  const normalized = message.trim().toLowerCase().replace(/[?!.,]+/g, "");
+
+  if (
+    [
+      "brok",
+      "hi brok",
+      "hey brok",
+      "yo brok",
+      "whats your name",
+      "what is your name",
+      "who are you",
+      "are you brok",
+      "are you grok",
+    ].includes(normalized)
+  ) {
+    return "I'm Brok, Glitter's built-in creative sidekick. Need ideas, visuals, copy, or a quick second brain? I'm right here.";
+  }
+
+  return null;
 };
 
 const renderInlineText = (text: string) => {
@@ -196,6 +225,7 @@ const GrokPage = () => {
     }
 
     const normalizedMessage = normalizePrompt(trimmed);
+    const localIdentityReply = getBrokIdentityReply(trimmed);
 
     const userMessage: ChatMessage = {
       id: `user-${Date.now()}`,
@@ -205,6 +235,19 @@ const GrokPage = () => {
 
     setMessages((current) => [...current, userMessage]);
     setInput("");
+
+    if (localIdentityReply) {
+      setMessages((current) => [
+        ...current,
+        {
+          id: `assistant-local-${Date.now()}`,
+          role: "assistant",
+          text: localIdentityReply,
+        },
+      ]);
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -213,7 +256,10 @@ const GrokPage = () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: normalizedMessage, uid: BROK_UID }),
+          body: JSON.stringify({
+            message: `${BROK_IDENTITY_CONTEXT}\n\nUser message: ${normalizedMessage}`,
+            uid: BROK_UID,
+          }),
         },
       );
 

@@ -24,7 +24,7 @@ const EditModal = () => {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
+  const resetForm = useCallback(() => {
     setProfileImage(currentUser?.profileImage || "");
     setCoverImage(currentUser?.coverImage || "");
     setName(currentUser?.name || "");
@@ -34,7 +34,27 @@ const EditModal = () => {
     setCurrentPassword("");
     setNewPassword("");
     setConfirmNewPassword("");
-  }, [currentUser]);
+  }, [
+    currentUser?.bio,
+    currentUser?.coverImage,
+    currentUser?.email,
+    currentUser?.name,
+    currentUser?.profileImage,
+    currentUser?.username,
+  ]);
+
+  useEffect(() => {
+    resetForm();
+  }, [resetForm]);
+
+  const handleClose = useCallback(() => {
+    if (isLoading) {
+      return;
+    }
+
+    resetForm();
+    editModal.onClose();
+  }, [editModal, isLoading, resetForm]);
 
   const onSubmit = useCallback(async () => {
     const trimmedEmail = email.trim();
@@ -198,7 +218,9 @@ const EditModal = () => {
       isOpen={editModal.isOpen}
       title="Edit your Profile"
       actionLabel="Save"
-      onClose={editModal.onClose}
+      secondaryAction={handleClose}
+      secondaryActionLabel="Cancel"
+      onClose={handleClose}
       onSubmit={onSubmit}
       body={bodyContent}
     />
