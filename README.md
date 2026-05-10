@@ -19,7 +19,7 @@ I treated Glitter like a product build instead of leaving it at tutorial level. 
 - Sidebar profile access with the edit shortcut available from anywhere in the app
 - Dee-EM private messaging with inbox, thread view, unread counts, and profile-launched conversations
 - Brok AI chat concept with a live chat surface, suggested prompts, image-capable replies, and saved local history
-- Custom Glitter naming like `Brok`, `Dee-EM`, and `Geek` to give the product its own personality without turning the whole README into an explanation of the joke
+- Custom Glitter naming like `Brok`, `Dee-EM`, and `Geek` to give the product its own light hearted personality
 
 ## Project Preview
 
