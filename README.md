@@ -132,7 +132,7 @@ I spent extra time here because profile pages are where social apps either start
 
 ### 4. Edit Profile Flow With Security Inside the Same UX
 
-One of the stronger product decisions in Glitter was keeping profile updates and security updates inside one cleaner edit experience.
+A key product decision in Glitter was keeping profile updates and security updates inside one cleaner edit flow.
 
 The edit flow supports:
 
@@ -145,7 +145,7 @@ The edit flow supports:
 
 I liked this direction because it keeps the profile flow simple for the user while still treating security changes like security changes.
 
-### 5. Dee-EM and the Quieter Side of the Product
+### 5. Dee-EM and the One-to-One Side of the Product
 
 I did not want private messaging to feel like a dead tab added just to pad the feature list.
 
@@ -256,6 +256,6 @@ The next layer I would build out is:
 
 ## Why Glitter Stands Out
 
-Glitter matters to me because it shows how I like to work: take a recognizable product category, make the behavior real, and keep pushing the state, UX, and product identity until the app feels owned instead of borrowed.
+Glitter is a good example of how I like to build: start with a familiar product category, make the behavior real, and keep pushing until the app feels cohesive instead of borrowed.
 
 It is not just a feed layout. It is a social product build with real account behavior, stronger profile logic, cleaner editing flow, private messaging, branded extensions, and a lot more system thinking than a tutorial app usually gets.
