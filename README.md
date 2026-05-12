@@ -1,8 +1,12 @@
 # Glitter
 
-Glitter is a full-stack social platform I built from an older Twitter-style foundation into something more branded, more account-aware, and more product-shaped. Instead of stopping at a familiar feed layout, I pushed it into real profile ownership, posting, follow and like behavior, private messaging, notifications, and custom extensions like Brok and Dee-EM.
+Glitter is a full-stack social platform built from a familiar Twitter-style foundation into a more distinct, account-aware product with its own branding, interaction flow, and social identity.
 
-I treated Glitter like a product build instead of leaving it at tutorial level. A lot of the work here was making auth state, profile state, modal behavior, and social actions move together cleanly so the app feels like one product instead of a stack of disconnected features.
+The app combines dynamic profiles, posting, follows, likes, notifications, private messaging, and AI-assisted interaction through Brok into one connected social system. A large part of the project focused on keeping account state, profile ownership, modal behavior, messaging, and interaction flow feeling cohesive across the entire app instead of letting features drift into disconnected experiences.
+
+The product structure is built around social state and user context. The UI changes depending on whether someone is signed out, viewing their own account, visiting another profile, opening edit flows, following users, liking posts, or moving through Dee-EM conversations. Keeping those states synchronized consistently across the app became one of the main engineering challenges in the project.
+
+The frontend was built with Next.js, React, TypeScript, Tailwind, Zustand, SWR, and React Query, with Prisma, MongoDB, and NextAuth supporting the backend and authentication layer. Zustand was used intentionally for lightweight UI state like modals and interaction flow instead of introducing heavier global state architecture where the product scope did not need it.
 
 ## Live Demo
 
@@ -10,16 +14,14 @@ I treated Glitter like a product build instead of leaving it at tutorial level. 
 
 ## Core Features
 
-- Full sign up, sign in, sign out, and authenticated session flow
-- Account-aware UI that changes across guests, profile owners, and other signed-in users
-- Post creation with text and image support, feed rendering, and comment flow
-- Dynamic profile pages with hero image, avatar, bio, join date, follower counts, and self-versus-other-user actions
-- Follow and unfollow logic plus like interactions tied into notification behavior
-- Edit profile modal with profile and cover image updates, username changes, and a dedicated security section
-- Sidebar profile access with the edit shortcut available from anywhere in the app
-- Dee-EM private messaging with inbox, thread view, unread counts, and profile-launched conversations
-- Brok AI chat concept with a live chat surface, suggested prompts, image-capable replies, and saved local history
-- Custom Glitter naming like `Brok`, `Dee-EM`, and `Geek` to give the product its own light hearted personality
+- Account-aware UI across guests, profile owners, and signed-in users
+- Dynamic profile pages with follow state, social metrics, and ownership-aware actions
+- Post creation with text, image support, comments, likes, and notifications
+- Dee-EM private messaging with thread views, unread counts, optimistic sends, and read-state syncing
+- Brok AI chat with dedicated routing, suggested prompts, image-capable replies, and local history persistence
+- Modal-driven profile editing and security flow with protected account updates
+- Responsive social layout with branded interaction patterns and custom product terminology
+- Lightweight optimistic UI patterns using Zustand, SWR, and React Query for smoother interaction flow
 
 ## Project Preview
 
@@ -47,7 +49,6 @@ Backend and Data:
 
 State and UX:
 - Zustand for modal and interaction state
-- I chose Zustand for lightweight UI state like modals and interaction flow because it kept the app fast and simple without bringing in heavier global state tooling the current product scope did not need.
 - SWR and React Query for client data flow
 - React Hot Toast for inline feedback
 - Optimistic UI patterns in posting and messaging flows
@@ -65,6 +66,41 @@ State and UX:
 - Email: `justin.henry0024@gmail.com`
 - Password: `random123!321`
 - Best for testing follow state, notifications, profile switching, and Dee-EM conversations between two users
+
+## Account Systems and Social State
+
+A major focus of Glitter was making social state feel connected across the app instead of isolated to individual screens.
+
+That included:
+- ownership-aware profile behavior
+- protected posting and messaging actions
+- follow and notification synchronization
+- modal and sidebar interaction flow
+- unread messaging state
+- conditional route and account behavior
+
+A lot of the engineering complexity came from making those systems consistently surface the right controls and interaction states depending on who the current user was and where they were navigating from.
+
+## Dee-EM and Brok
+
+Two of the stronger product extensions inside Glitter are Dee-EM and Brok.
+
+Dee-EM handles the one-to-one side of the platform through:
+- searchable conversations
+- thread-based messaging
+- profile-launched conversations
+- unread counts
+- optimistic message updates
+- read-state syncing
+
+Brok extends the product with a branded AI interaction layer that includes:
+- dedicated chat routing
+- prompt handling
+- local history persistence
+- image-capable responses
+- suggested prompts
+
+Both systems helped push the app beyond a standard social feed structure and gave the product a stronger internal identity.
 
 ## Feature Screens
 
